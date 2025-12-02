@@ -4,7 +4,12 @@ import App from "../App";
 
 describe("App component", () => {
   beforeEach(() => {
-    global.fetch = jest.fn().mockResolvedValue({ json: async () => [] });
+    global.fetch = jest.fn(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ json: async () => [] }), 100)
+        )
+    );
   });
   afterEach(() => {
     jest.restoreAllMocks();
